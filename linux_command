@@ -1,0 +1,11 @@
+
+1、mount硬盘
+
+查找硬盘
+fdisk -l
+例如：找到挂载的硬盘为/dev/sdb1
+mount /dev/sdb1 temp
+
+如果提示：Failed to mount '/dev/sdb1': Input/output error 
+可以使用下面的命令修复
+sudo ntfsfix /dev/sdb1
