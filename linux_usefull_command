@@ -9,3 +9,13 @@ mount /dev/sdb1 temp
 如果提示：Failed to mount '/dev/sdb1': Input/output error 
 可以使用下面的命令修复
 sudo ntfsfix /dev/sdb1
+
+
+2、禁用ubuntu桌面
+sudo service stop  lightdm 
+
+sudo /etc/init.d/lightdm stop
+
+3、git使用
+git config --global credential.helper store
+
