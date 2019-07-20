@@ -10,6 +10,11 @@ mount /dev/sdb1 temp
 可以使用下面的命令修复
 sudo ntfsfix /dev/sdb1
 
+如果是windows下的exfat格式，则使用
+该开源项目https://github.com/dorimanx/exfat-nofuse
+sudo modprobe exfat
+sudo mount -t exfat /dev/sdb1 mount-file/
+
 
 2、禁用ubuntu桌面
 sudo service stop  lightdm 
