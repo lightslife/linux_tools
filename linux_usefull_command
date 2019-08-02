@@ -24,3 +24,13 @@ sudo /etc/init.d/lightdm stop
 3、git使用
 git config --global credential.helper store
 
+推送新分支到远程仓库
+ git push  origin decoder-faster:decoder-faster
+ 
+ 强制回退
+ （1）强制本地回退
+ git reset --hard f6a7c803a6931a9eca011d4e097389e0845cbe49
+ （2）推送到远程
+ git push -f origin master
+ 
+ 
