@@ -1,104 +1,25 @@
-docker文档
 
-1、   docker pull ubuntu:16.04
+docker使用文档
 
-docker ps
+1、加载docker镜像
+sudo docker load --input server_speech.tar
 
+2、保存docker镜像
+sudo docker save asr-cn:20190802  -o asr-cn-20190802.tar
 
-
-八、运行Docker容器
-现在可以看到在Bash Shell下建立Ubuntu容器是非常简单的，只需运行一行命令即可。
--i选项：让输入输出都在标准控制台进行
--t选项：分配一个tty
-
-# docker run -i -t ubuntu /bin/bash
-root@696d5fd32bba:/#
-
-
-
-
-4 查看所有容器
-
-docker ps -a
-
-
-
-
- 在使用docker容器时，有时候里边没有安装vim，敲vim命令时提示说：vim: command not found，这个时候就需要安装vim，可是当你敲apt-get install vim命令时，提示：
-
-        Reading package lists... Done
-        Building dependency tree       
-        Reading state information... Done
-        E: Unable to locate package vim
-
-        这时候需要敲：apt-get update，这个命令的作用是：同步 /etc/apt/sources.list 和 /etc/apt/sources.list.d 中列出的源的索引，这样才能获取到最新的软件包。
-
-        等更新完毕以后再敲命令：apt-get install vim命令即可。
-
-
-在容器中安装新的程序
-下一步我们要做的事情是在容器里面安装一个简单的程序(ping)。我们之前下载的tutorial镜像是基于ubuntu的，所以你可以使用ubuntu的apt-get命令来安装ping程序：apt-get install -y ping。
-
-备注：apt-get 命令执行完毕之后，容器就会停止，但对容器的改动不会丢失。
-
-目标：
-在learn/tutorial镜像里面安装ping程序。
-
-提示：
-在执行apt-get 命令的时候，要带上-y参数。如果不指定-y参数的话，apt-get命令会进入交互模式，需要用户输入命令来进行确认，但在docker环境中是无法响应这种交互的。
-
-正确的命令：
-$docker run learn/tutorial apt-get install -y ping
-
-
-
-
-（3）有时，docker可能不能上网，那么，可以加入--net=host，即完整的命令如下：
-
-sudo docker run -it --rm -p 8888:8888 --net=host -v `pwd`/workspace:/opt/workspace -v `pwd`/data:/root/data tingtinglu/deepdock
-1
-2
-（4）如果是windows系统，那么，文件夹映射需要绝对路径 
-即需要如下命令：
-
-sudo docker run -it --rm -p 8888:8888 --net=host -v `pwd`/workspace:/root/opt/workspace -v `pwd`/data:/root/data tingtinglu/deepdock
-1
-2
-并且，windows目前只支持C盘！一定要注意！
-
-注：docker的指令模式是：标示+参数，即：[sudo] docker [flags] [command] [arguments] 
-eg.: docker run -i -t ubuntu /bin/bash
-
-4. 查看正在运行的container
+3、查看运行的容器
 sudo docker ps
 
+4、将一个容器保存为image
+sudo  docker commit  containerId newImageName
+如：sudo docker commit 44ffsdf asr:201901
 
-6. 将一个容器保存为image
-如果对docker的做了一些更改，并且，这些更改不是安装了jupyter这样的软件，而只是安装了一些package，那么，保存新的镜像只需要：
+5、docker使用宿主机上网 --net=host
+   docker映射端口 -p 8080:80 （宿主机端口:docker端口)
+   让docker分配一个伪终端并绑定到容器的标准输入上 -t
+   让容器的标准输入保持打开 -i
+   docker映射文件目录 -v /home/workspace:/root/opt/workspace (宿主机目录:docker目录)
+   其中目前windows只支持c盘。
 
-sudo docker commit containerID newImageName
-
-
-docker commit 44f  study/ubuntu-hgx
-
-
-apt-get install python2.7  
-
-
-sudo docker run -it   --net=host -p 8000:8000  study/ubuntu-hgx
-
-docker run -i -t --net=host -p 8000:8000  speech/study  /bin/bash
-
-
-
-sudo docker image ls
-docker load --input /data/centos7.tar
-
-sudo docker save busybox > busybox.tar
-
-D:\Python27\python.exe  -m SimpleHTTPServer
-
-docker run -it -p 8080:80  -v C:\model:/opt/models chinese/speech  /bin/bash
-
-
-/opt/start.sh -y /opt/models/nnet2.yaml
+如： sudo docker run -it -p 8080:80  -v C:\model1:/opt/models chinese/speech  /bin/bash
+	 sudo docker run -i -t --net=host -p 8000:8000  speech/study  /bin/bash     （使用docker的bash）
