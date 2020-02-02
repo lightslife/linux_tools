@@ -15,6 +15,11 @@ sudo ntfsfix /dev/sdb1
 sudo modprobe exfat
 sudo mount -t exfat /dev/sdb1 mount-file/
 
+卸载设备
+# umount -v /dev/sda1          通过设备名卸载  
+/dev/sda1 umounted  
+# umount -v /mnt/mymount/      通过挂载点卸载  
+/tmp/diskboot.img umounted 
 
 2、禁用ubuntu桌面
 sudo service stop  lightdm 
@@ -33,4 +38,8 @@ git config --global credential.helper store
  （2）推送到远程
  git push -f origin master
  
+
+
+ 4、查看gcc默认定义的宏
+ g++ -dM -E - < /dev/null
  
